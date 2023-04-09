@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Order Detail
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            <h3 class="text-success">Order Details</h3><hr>
+            <p><span class="font-weight-bold">Order ID:</span>#ORDER_{{ord_obj.id}}</p>
+            <p><span class="font-weight-bold">Order Status:</span>{{ord_obj.order_status}}</p>
+            <p><span class="font-weight-bold">Order On:</span>{{ord_obj.created_at}}({{ord_obj.created_at|timesince}} ago)</p>
+            <p><span class="font-weight-bold">Customer Information:</span>{{ord_obj.ordered_by}}</p>
+            <p><span class="font-weight-bold">Customer Mobile:</span>{{ord_obj.mobile}}</p>
+            <p><span class="font-weight-bold">Customer Email:</span>{{ord_obj.email}}</p>
+            <p><span class="font-weight-bold">Shipping Address:</span>{{ord_obj.shipping_address}}</p>
+            <h4 class="text-info">Order Items</h4><hr>
+            <table class="table table-bordered">
+                <thead class="bg-info">
+                  <tr>
+                    <th scope="col">SN</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Rate</th>
+                    <th scope="col">Quantity</th>
+                    <th scope="col">Subtotal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for cp in ord_obj.cart.cartproduct_set.all %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><a href="{% url 'productdetails' cp.product.slug %}" target="_blank">{{cp.product.title}}</a></td>
+                    <td>{{cp.rate}}</td>
+                    <td>{{cp.quantity}}</td>
+                    <td>{{cp.subtotal}}</td>
+                  </tr>
+                {% endfor %}  
+                <tr>
+                    <th class="text-right" colspan="4">Total:</th>
+                    <th>{{ord_obj.total}}&#2547;</th>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>            
+{% endblock content %}

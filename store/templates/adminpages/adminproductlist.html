@@ -1,0 +1,38 @@
+{% extends 'adminpages/adminbase.html' %}
+{% block title %}
+ All Products
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-success">All Products List</h3><hr>
+            <a href="{% url 'adminoproductcreate'%}" class="btn btn-secondary btn-sm">Add New Product</a><hr>
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">SN</th>
+                    <th scope="col">Product Title</th>
+                    <th scope="col">Image</th>
+                    <th scope="col">Price</th>
+                    <th scope="col">Views</th>
+                    
+                  </tr>
+                </thead>
+                <tbody>
+                {% for p in allproducts %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td>{{p.title}}</td>
+                    <td><img src="{{p.image.url}}" alt="Product Image" style="height: 60px;"></td>
+                    <td>{{p.selling_price}} <span>&#2547;</span></td>
+                    <td>{{p.view_count}}</td>
+                  </tr>
+                {% endfor %}  
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock content %}

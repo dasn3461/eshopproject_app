@@ -1,0 +1,84 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <title>
+        {% block title %}
+        {% endblock title %}
+    </title>
+  </head>
+  <body class="bg-light">
+    <!-- Navbar Start -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="/">
+          <img style="border-radius: 50%;" src="{% static 'store/images/logo.png'%}" width="50px" height="50px" class="card-img-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="/">ESHOP</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'category' %}">Category</a>
+            </li>
+  
+            <li class="nav-item">
+              <a class="nav-link active" href="{% url 'viewcart'%}">ViewCart</a>
+            </li>
+            
+            <li class="nav-item dropdown">
+              <a class="nav-link active dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                My Account
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+
+                {% if request.user.customer %}
+                <a class="dropdown-item" href="{% url 'customerprofile' %}">Profile</a>
+                <a class="dropdown-item" href="{% url 'customerlogout' %}">Logout</a>
+
+                {% else %}
+                <a class="dropdown-item" href="{% url 'customerregistration' %}">Registration</a>
+                <a class="dropdown-item" href="{% url 'customerlogin' %}">Login</a>
+                {% endif %}
+
+              </div>
+            </li>
+          </ul>
+
+          <form action="{% url 'search' %}" method="GET" class="d-flex">
+            <input class="form-control me-2" type="text" name="keyword" placeholder="Search for product..." required>
+            <button class="btn btn-success" type="submit">Search</button>
+          </form>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar End -->
+
+    
+
+    {% block content %}
+    {% endblock content %}
+
+    <!-- Start Footer -->
+    <footer class="container-fluid bg-dark text-center p-2 mt-5">
+      <small class="text-white">Copyright &copy; 2023 || Designed By Nayan Das || </small>
+  </footer> 
+  <!-- End Footer -->
+
+
+    <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+  </body>
+</html>

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Registration
+{% endblock title %}
+
+{% block content %}
+<style>
+    .errorlist{
+        color: red;
+        list-style-type: none;
+    }
+</style>
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h3 class="text-success">Customer Registration Here</h3><hr>
+            <form action="" method="POST">
+                {% csrf_token %}
+                  {{form.as_p}}
+                   <input type="submit" value="Registration Here" class="btn btn-success">
+            </form>
+            <p>Don't have an account?<a href="{% url 'customerlogin' %}" class="text-primary">Login</a></p>
+        </div>
+    </div>
+</div>
+                        
+{% endblock content %}

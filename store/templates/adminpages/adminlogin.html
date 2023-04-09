@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Admin Login
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <h3 class="text-primary">Admin Login Here</h3><hr>
+            <form action="" method="POST">
+                {% csrf_token %}
+                  {{form.as_p}}
+                   <input type="submit" value="Admin Login Here" class="btn btn-primary">
+                   {% if error %}
+                   <li style="color: red;">{{error}}</li>
+                  {% endif %}
+            </form>
+        </div>
+    </div>
+</div>
+                        
+{% endblock content %}

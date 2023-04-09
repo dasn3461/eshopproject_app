@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}
+ HOME
+{% endblock title %}
+
+
+
+{% block content %}
+
+<div class="container">
+  <h1 class="text-center text-info p-2">Our Eshop Products</h1>
+    <div class="row mx-auto">
+      {% for pro in products %}
+      <div class="card mx-auto mb-3" style="width: 18rem;">
+          <img style="height: 300px;" src="{{pro.image.url}}" class="img-fluid" alt="Image">
+          <div class="card-body">
+              <h5 class="card-title"><a href="{% url 'productdetails' pro.slug %}">{{pro.title}}</a></h5>
+            <p class="card-text">Price:<strike>{{pro.marked_price}}&#2547;</strike>{{pro.selling_price}}&#2547;</p>
+            <a href="{% url 'addtocart' pro.id %}" class="btn btn-primary btn-block">Add To Cart</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+
+    <nav aria-label="...">
+      <ul class="pagination">
+        {% if products.has_previous %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{products.previous_page_number}}">Previous</a>
+          </li>
+        {% else %}  
+
+          <li class="page-item disabled">
+            <a class="page-link">Previous</a>
+          </li>
+        
+        {% endif %}
+
+        {% for i in  products.paginator.page_range %}
+         {% if i == products.number %}
+         <li class="page-item"><a class="page-link">{{i}}</a></li>
+         {% else %}
+         <li class="page-item"><a class="page-link" href="?page={{i}}">{{i}}</a></li>
+         {% endif %}
+        {% endfor %}
+
+        {% if products.has_next %}
+          <li class="page-item">
+            <a class="page-link" href="?page={{products.next_page_number}}">Next</a>
+          </li>
+        {% else %}  
+
+          <li class="page-item disabled">
+            <a class="page-link">Next</a>
+          </li>
+        {% endif %} 
+
+      </ul>
+    </nav>
+
+
+
+</div>
+{% endblock content %}

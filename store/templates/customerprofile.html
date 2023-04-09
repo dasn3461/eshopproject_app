@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}
+ Profile
+{% endblock title %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <h3 class="text-info">Customer Details</h3><hr>
+            <p><span class="font-weight-bold">Customer Name:</span>{{customer.full_name}}</p>
+            <p><span class="font-weight-bold">Username:</span>{{customer.user.username}}</p>
+            <p><span class="font-weight-bold">Email:</span>{{customer.user.email}}</p>
+            <p><span class="font-weight-bold">Address:</span>{{customer.address}}</p>
+            <p><span class="font-weight-bold">Joined On:</span>{{customer.joined_on}}</p>
+        </div>
+        <div class="col-md-8">
+            <h3 class="text-info">Previous Orders</h3><hr>
+            <table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">SN</th>
+                    <th scope="col">Order ID</th>
+                    <th scope="col">Total</th>
+                    <th scope="col">Ordered On</th>
+                    <th scope="col">Order Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                {% for or in orders  %}
+                  <tr>
+                    <th scope="row">{{forloop.counter}}</th>
+                    <td><a href="{% url 'customerorderdetails' or.pk %}">#ORDER_{{or.id}}</a></td>
+                    <td>{{or.total}}<span>&#2547;</span></td>
+                    <td>{{or.created_at|timesince}} ago</td>
+                    <td>{{or.order_status}}</td>
+                  </tr>
+                {% endfor %}  
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>               
+{% endblock content %}
